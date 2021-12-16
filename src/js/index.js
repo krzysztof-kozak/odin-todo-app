@@ -3,6 +3,7 @@ import "../css/style.css";
 
 import AppStorage from "./components/AppStorage";
 import App from "./components/App";
+import PublishSubscribe from "./components/PublishSubscribe";
 
 /* 
 Components:
@@ -31,9 +32,7 @@ Components:
 
 const storage = new AppStorage();
 const app = new App(storage);
+app.render();
 
 app.addTodo({ name: "joe", age: 50, married: true });
-app.addTodo({ name: "kevin", age: 19, married: false });
-app.addTodo({ name: "kris", age: 30, married: false });
-
-console.log(app.todoList);
+PublishSubscribe.publish("TODO_ADDED", { name: "joe", age: 50, married: true });
