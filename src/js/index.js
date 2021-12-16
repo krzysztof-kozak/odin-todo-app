@@ -2,6 +2,7 @@ import "../css/reset.css";
 import "../css/style.css";
 
 import AppStorage from "./components/AppStorage";
+import App from "./components/App";
 
 /* 
 Components:
@@ -27,3 +28,12 @@ Components:
         - allows components to subscribe to the events they care about.
         - broadcasts events to the interested subscribers.
 */
+
+const storage = new AppStorage();
+const app = new App(storage);
+
+app.addTodo({ name: "joe", age: 50, married: true });
+app.addTodo({ name: "kevin", age: 19, married: false });
+app.addTodo({ name: "kris", age: 30, married: false });
+
+console.log(app.todoList);
