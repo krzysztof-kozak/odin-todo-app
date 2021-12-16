@@ -1,0 +1,19 @@
+h1 {
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+form {
+	margin: 0 auto;
+	max-width: 400px;
+}
+
+input {
+	background-color: hsl(160deg 1% 60%);
+	padding: 0.25em 0.75em;
+}
+
+input,
+input::placeholder {
+	color: hsl(0deg 0% 0%);
+}

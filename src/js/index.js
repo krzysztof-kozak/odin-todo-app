@@ -34,5 +34,14 @@ const storage = new AppStorage();
 const app = new App(storage);
 app.render();
 
-app.addTodo({ name: "joe", age: 50, married: true });
-PublishSubscribe.publish("TODO_ADDED", { name: "joe", age: 50, married: true });
+const form = document.querySelector("form");
+form.addEventListener("submit", handleTodoSubmit);
+
+function handleTodoSubmit(event) {
+	event.preventDefault();
+
+	const data = new FormData(form);
+	const todo = data.get("todo");
+
+	PublishSubscribe.publish("TODO_ADDED", todo);
+}

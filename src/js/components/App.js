@@ -8,16 +8,17 @@ class App {
 
 	render() {
 		PublishSubscribe.subscribe("TODO_ADDED", this.logInfo);
+		PublishSubscribe.subscribe("TODO_ADDED", this.addTodo.bind(this));
 	}
 
 	logInfo(data) {
-		console.log(`This TODO has been added just now: ${JSON.stringify(data)}`);
+		console.log(`I hear that a new todo item has just been submitted: ${JSON.stringify(data)}`);
 	}
 
 	addTodo(todoItem) {
 		this.todoList.push(todoItem);
 		this.storage.set("APP_DATA", this.todoList);
-		console.log("todo fired!");
+		console.log("Todo item saved in the storage!");
 	}
 
 	removeTodo() {}
