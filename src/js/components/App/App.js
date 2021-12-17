@@ -7,23 +7,24 @@ class App {
 	}
 
 	addTodo(todoItem) {
-		if (!todoItem) {
+		// don't add duplicate task
+		const isDuplicate = this.todoList.some(({ title }) => todoItem.title === title);
+		if (isDuplicate) {
 			return;
 		}
 
 		this.todoList.push(todoItem);
-
-		//remove duplicates
-		this.todoList = new Set(this.todoList);
-		this.todoList = Array.from(this.todoList);
-
 		this.storage.set("APP_DATA", this.todoList);
+
+		// Hey! I just want everybody to know that a todo was added!
 		PublishSubscribe.publish("TODO_ADDED", this.todoList);
 	}
 
 	removeTodo(id) {
 		this.todoList = this.todoList.filter((item) => item.id !== id);
 		this.storage.set("APP_DATA", this.todoList);
+
+		// Hey! I just want everybody to know that a todo was added!
 		PublishSubscribe.publish("TODO_REMOVED", this.todoList);
 	}
 }

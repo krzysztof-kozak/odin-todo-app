@@ -24,11 +24,9 @@ function handleTodoSubmit(event) {
 
 	const data = new FormData(form);
 	const todo = data.get("todo");
+
 	const formattedTodo = TodoMapper.map(todo);
 	app.addTodo(formattedTodo);
-
-	// Hey! I just want everybody to know that a todo was added!
-	PublishSubscribe.publish("TODO_ADDED", app.todoList);
 
 	form.reset();
 }
@@ -40,7 +38,4 @@ function handleTodoRemoval({ target }) {
 
 	const id = target.dataset.id;
 	app.removeTodo(id);
-
-	// Hey! I just want everybody to know that a todo was removed!
-	PublishSubscribe.publish("TODO_REMOVED", app.todoList);
 }
