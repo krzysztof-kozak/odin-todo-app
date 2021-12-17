@@ -14,7 +14,10 @@ const todoList = new TodoList(app.todoList);
 todoList.render(app.todoList);
 
 const form = document.querySelector("form");
+const ul = document.querySelector("ul");
+
 form.addEventListener("submit", handleTodoSubmit);
+ul.addEventListener("click", handleTodoRemoval);
 
 function handleTodoSubmit(event) {
 	event.preventDefault();
@@ -25,4 +28,16 @@ function handleTodoSubmit(event) {
 
 	// Hey! I just want everybody to know that a todo was added!
 	PublishSubscribe.publish("TODO_ADDED", app.todoList);
+
+	form.reset();
+}
+function handleTodoRemoval({ target }) {
+	if (target.nodeName !== "LI") {
+		return;
+	}
+
+	app.removeTodo(target.textContent);
+
+	// Hey! I just want everybody to know that a todo was removed!
+	PublishSubscribe.publish("TODO_REMOVED", app.todoList);
 }

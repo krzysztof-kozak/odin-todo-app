@@ -7,6 +7,10 @@ class App {
 	}
 
 	addTodo(todoItem) {
+		if (!todoItem) {
+			return;
+		}
+
 		this.todoList.push(todoItem);
 
 		//remove duplicates
@@ -14,9 +18,17 @@ class App {
 		this.todoList = Array.from(this.todoList);
 
 		this.storage.set("APP_DATA", this.todoList);
+		PublishSubscribe.publish("TODO_ADDED", this.todoList);
+	}
 
-		console.log("Todo item saved in the storage!");
-		PublishSubscribe.publish("TODO_Added", this.todoList);
+	removeTodo(itemToRemove) {
+		if (!itemToRemove) {
+			return;
+		}
+
+		this.todoList = this.todoList.filter((item) => item !== itemToRemove);
+		this.storage.set("APP_DATA", this.todoList);
+		PublishSubscribe.publish("TODO_REMOVED", this.todoList);
 	}
 }
 

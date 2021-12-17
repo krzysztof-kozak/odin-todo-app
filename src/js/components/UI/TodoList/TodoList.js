@@ -4,6 +4,9 @@ class TodoList {
 	constructor() {
 		// Hey! I want to know when a todo was added!
 		PublishSubscribe.subscribe("TODO_ADDED", this.render);
+
+		// Hey! I want to know when a todo was removed!
+		PublishSubscribe.subscribe("TODO_REMOVED", this.render);
 	}
 
 	render(todos) {
