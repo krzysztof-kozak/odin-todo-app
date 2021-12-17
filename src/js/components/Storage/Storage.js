@@ -1,4 +1,6 @@
-class AppStorage {
+import { PublishSubscribe } from "../PublishSubscribe";
+
+class Storage {
 	constructor() {
 		this.storage = localStorage;
 	}
@@ -15,4 +17,4 @@ class AppStorage {
 	}
 }
 
-export default AppStorage;
+export default Storage;

@@ -1,11 +1,17 @@
 import "../css/reset.css";
 import "../css/style.css";
 
-import { App, AppStorage, PublishSubscribe } from "./components";
+// UI Components
+import { TodoList } from "./components/UI";
 
-const storage = new AppStorage();
+// Logic Components
+import { App, Storage, PublishSubscribe } from "./components";
+
+const storage = new Storage();
 const app = new App(storage);
-app.render();
+const todoList = new TodoList(app.todoList);
+
+todoList.render(app.todoList);
 
 const form = document.querySelector("form");
 form.addEventListener("submit", handleTodoSubmit);
@@ -15,6 +21,8 @@ function handleTodoSubmit(event) {
 
 	const data = new FormData(form);
 	const todo = data.get("todo");
+	app.addTodo(todo);
 
-	PublishSubscribe.publish("TODO_ADDED", todo);
+	// Hey! I just want everybody to know that a todo was added!
+	PublishSubscribe.publish("TODO_ADDED", app.todoList);
 }

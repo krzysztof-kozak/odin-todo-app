@@ -4,7 +4,8 @@ h2 {
 	text-align: center;
 }
 
-form {
+form,
+ul {
 	margin: 0 auto 2em;
 	max-width: 400px;
 }
@@ -17,9 +18,4 @@ input {
 input,
 input::placeholder {
 	color: hsl(0deg 0% 0%);
-}
-
-ul {
-	margin: o auto 2em;
-	max-width: 400px;
 }
