@@ -24,3 +24,7 @@ input,
 input::placeholder {
 	color: hsl(0deg 0% 0%);
 }
+
+.hidden {
+	display: none;
+}

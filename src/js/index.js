@@ -5,7 +5,7 @@ import "../css/style.css";
 import { TodoList } from "./components/UI";
 
 // Logic Components
-import { App, Storage, PublishSubscribe, TodoMapper } from "./components";
+import { App, Storage, TodoMapper } from "./components";
 
 const storage = new Storage();
 const app = new App(storage);
@@ -17,7 +17,7 @@ const form = document.querySelector("form");
 const ul = document.querySelector("ul");
 
 form.addEventListener("submit", handleTodoSubmit);
-ul.addEventListener("click", handleTodoRemoval);
+ul.addEventListener("click", handleTodoClick);
 
 function handleTodoSubmit(event) {
 	event.preventDefault();
@@ -31,11 +31,27 @@ function handleTodoSubmit(event) {
 	form.reset();
 }
 
-function handleTodoRemoval({ target }) {
-	if (target.nodeName !== "LI") {
+function handleTodoClick({ target }) {
+	const clickedNode = target.nodeName;
+
+	if (clickedNode !== "LI" && clickedNode !== "SPAN") {
 		return;
 	}
 
-	const id = target.dataset.id;
-	app.removeTodo(id);
+	if (clickedNode === "LI") {
+		const id = target.dataset.id;
+		app.removeTodo(id);
+		return;
+	}
+
+	if (clickedNode === "SPAN") {
+		const currentTodo = target.closest("li");
+		const dateInput = currentTodo.querySelector("input");
+
+		target.classList.add("hidden");
+		dateInput.classList.remove("hidden");
+
+		const id = currentTodo.dataset.id;
+		dateInput.addEventListener("change", app.setTodoDate.bind(app, id));
+	}
 }
