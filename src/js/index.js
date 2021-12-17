@@ -18,6 +18,7 @@ const ul = document.querySelector("ul");
 
 form.addEventListener("submit", handleTodoSubmit);
 ul.addEventListener("click", handleTodoClick);
+document.addEventListener("click", hideUnclosedDateInputs, true);
 
 function handleTodoSubmit(event) {
 	event.preventDefault();
@@ -45,6 +46,8 @@ function handleTodoClick({ target }) {
 	}
 
 	if (clickedNode === "SPAN") {
+		hideUnclosedDateInputs();
+
 		const currentTodo = target.closest("li");
 		const dateInput = currentTodo.querySelector("input");
 
@@ -54,4 +57,16 @@ function handleTodoClick({ target }) {
 		const id = currentTodo.dataset.id;
 		dateInput.addEventListener("change", app.setTodoDate.bind(app, id));
 	}
+}
+
+function hideUnclosedDateInputs(event) {
+	let dateInputs = document.querySelectorAll("input[type='date']");
+	const dateSpans = document.querySelectorAll("span");
+
+	if (event) {
+		dateInputs = [...dateInputs].filter((input) => input !== event.target);
+	}
+
+	dateInputs.forEach((input) => input.classList.toggle("hidden", true));
+	dateSpans.forEach((span) => span.classList.toggle("hidden", false));
 }
