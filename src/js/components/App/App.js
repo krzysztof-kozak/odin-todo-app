@@ -21,12 +21,8 @@ class App {
 		PublishSubscribe.publish("TODO_ADDED", this.todoList);
 	}
 
-	removeTodo(itemToRemove) {
-		if (!itemToRemove) {
-			return;
-		}
-
-		this.todoList = this.todoList.filter((item) => item !== itemToRemove);
+	removeTodo(id) {
+		this.todoList = this.todoList.filter((item) => item.id !== id);
 		this.storage.set("APP_DATA", this.todoList);
 		PublishSubscribe.publish("TODO_REMOVED", this.todoList);
 	}

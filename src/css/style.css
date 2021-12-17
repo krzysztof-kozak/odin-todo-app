@@ -10,6 +10,11 @@ ul {
 	max-width: 400px;
 }
 
+li {
+	display: flex;
+	justify-content: space-between;
+}
+
 input {
 	background-color: hsl(160deg 1% 60%);
 	padding: 0.25em 0.75em;

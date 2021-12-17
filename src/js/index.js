@@ -38,7 +38,8 @@ function handleTodoRemoval({ target }) {
 		return;
 	}
 
-	app.removeTodo(target.textContent);
+	const id = target.dataset.id;
+	app.removeTodo(id);
 
 	// Hey! I just want everybody to know that a todo was removed!
 	PublishSubscribe.publish("TODO_REMOVED", app.todoList);

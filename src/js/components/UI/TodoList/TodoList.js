@@ -17,7 +17,13 @@ class TodoList {
 
 		todos.forEach((todo) => {
 			const li = document.createElement("li");
+			const span = document.createElement("span");
+
 			li.textContent = todo.title;
+			li.setAttribute("data-id", todo.id);
+			span.textContent = todo.dueDate;
+
+			li.appendChild(span);
 			df.appendChild(li);
 		});
 
