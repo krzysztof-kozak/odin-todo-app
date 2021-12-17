@@ -1,4 +1,4 @@
-import PublishSubscribe from "./PublishSubscribe";
+import { PublishSubscribe } from "../PublishSubscribe";
 
 class App {
 	constructor(storage) {
@@ -7,7 +7,6 @@ class App {
 	}
 
 	render() {
-		PublishSubscribe.subscribe("TODO_ADDED", this.logInfo);
 		PublishSubscribe.subscribe("TODO_ADDED", this.addTodo.bind(this));
 	}
 

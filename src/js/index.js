@@ -1,9 +1,7 @@
 import "../css/reset.css";
 import "../css/style.css";
 
-import AppStorage from "./components/AppStorage";
-import App from "./components/App";
-import PublishSubscribe from "./components/PublishSubscribe";
+import { App, AppStorage, PublishSubscribe } from "./components";
 
 const storage = new AppStorage();
 const app = new App(storage);
