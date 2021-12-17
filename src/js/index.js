@@ -5,7 +5,7 @@ import "../css/style.css";
 import { TodoList } from "./components/UI";
 
 // Logic Components
-import { App, Storage, PublishSubscribe } from "./components";
+import { App, Storage, PublishSubscribe, TodoMapper } from "./components";
 
 const storage = new Storage();
 const app = new App(storage);
@@ -24,13 +24,15 @@ function handleTodoSubmit(event) {
 
 	const data = new FormData(form);
 	const todo = data.get("todo");
-	app.addTodo(todo);
+	const formattedTodo = TodoMapper.map(todo);
+	app.addTodo(formattedTodo);
 
 	// Hey! I just want everybody to know that a todo was added!
 	PublishSubscribe.publish("TODO_ADDED", app.todoList);
 
 	form.reset();
 }
+
 function handleTodoRemoval({ target }) {
 	if (target.nodeName !== "LI") {
 		return;

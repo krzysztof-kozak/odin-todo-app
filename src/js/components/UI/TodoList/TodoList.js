@@ -17,7 +17,7 @@ class TodoList {
 
 		todos.forEach((todo) => {
 			const li = document.createElement("li");
-			li.textContent = todo;
+			li.textContent = todo.title;
 			df.appendChild(li);
 		});
 
