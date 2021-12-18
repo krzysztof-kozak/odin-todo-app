@@ -9,15 +9,21 @@
 	<body>
 		<h1>TODO APP</h1>
 
-		<form>
+		<form id="todo-form">
 			<label for="todo">New Task:</label>
 			<input type="text" id="todo" name="todo" placeholder="enter your task" />
 			<button type="submit">Add</button>
 		</form>
 
+		<form id="project-form">
+			<label for="todo">New Project:</label>
+			<input type="text" id="project" name="project" placeholder="enter your project" />
+			<button type="submit">Add</button>
+		</form>
+
 		<section>
 			<h2>Todo list</h2>
-			<ul></ul>
+			<ul id="main-todo-list"></ul>
 		</section>
 	</body>
 </html>

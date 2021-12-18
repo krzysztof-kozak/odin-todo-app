@@ -13,11 +13,14 @@ const todoList = new TodoList(app.todoList);
 
 todoList.render(app.todoList);
 
-const form = document.querySelector("form");
-const ul = document.querySelector("ul");
+const todoForm = document.querySelector("#todo-form");
+const projectForm = document.querySelector("#project-form");
+const mainTodoList = document.querySelector("#main-todo-list");
 
-form.addEventListener("submit", handleTodoSubmit);
-ul.addEventListener("click", handleTodoClick);
+projectForm.addEventListener("submit", handleProjectSubmit);
+todoForm.addEventListener("submit", handleTodoSubmit);
+
+mainTodoList.addEventListener("click", handleTodoClick);
 document.addEventListener("click", hideUnclosedDateInputs, true);
 
 function handleTodoSubmit(event) {
@@ -69,4 +72,20 @@ function hideUnclosedDateInputs(event) {
 
 	dateInputs.forEach((input) => input.classList.toggle("hidden", true));
 	dateSpans.forEach((span) => span.classList.toggle("hidden", false));
+}
+
+function handleProjectSubmit(event) {
+	event.preventDefault();
+
+	const data = new FormData(projectForm);
+	const project = data.get("project");
+
+	const section = document.createElement("section");
+	section.innerHTML = `
+	<h2>${project}</h2>
+	<ul id="${project}"></ul>`;
+
+	document.body.appendChild(section);
+
+	projectForm.reset();
 }
