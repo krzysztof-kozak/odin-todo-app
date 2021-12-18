@@ -7,21 +7,23 @@ import { TodoList } from "./components/UI";
 // Logic Components
 import { App, Storage, TodoMapper } from "./components";
 
-const storage = new Storage();
-const app = new App(storage);
-const todoList = new TodoList(app.todoList);
+// const storage = new Storage();
+// const app = new App(storage);
+// const todoList = new TodoList(app.todoList);
 
-todoList.render(app.todoList);
+// todoList.render(app.todoList);
 
 const todoForm = document.querySelector("#todo-form");
 const projectForm = document.querySelector("#project-form");
 const mainTodoList = document.querySelector("#main-todo-list");
 
+/*
 projectForm.addEventListener("submit", handleProjectSubmit);
 todoForm.addEventListener("submit", handleTodoSubmit);
 
 mainTodoList.addEventListener("click", handleTodoClick);
 document.addEventListener("click", hideUnclosedDateInputs, true);
+*/
 
 function handleTodoSubmit(event) {
 	event.preventDefault();

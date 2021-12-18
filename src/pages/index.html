@@ -7,7 +7,7 @@
 		<title>Odin Todo app</title>
 	</head>
 	<body>
-		<h1>TODO APP</h1>
+		<!-- <h1>TODO APP</h1>
 
 		<form id="todo-form">
 			<label for="todo">New Task:</label>
@@ -24,6 +24,44 @@
 		<section>
 			<h2>Todo list</h2>
 			<ul id="main-todo-list"></ul>
-		</section>
+		</section> -->
+		<div id="app">
+			<aside>
+				<section class="projects">
+					<h2 class="projects__title">Projects</h2>
+					<form class="project-form">
+						<input
+							class="project-form__input"
+							aria-label="New Project"
+							type="text"
+							name="new-project"
+						/>
+						<button class="project-form_button" type="submit">+</button>
+					</form>
+				</section>
+			</aside>
+			<main>
+				<section class="inbox">
+					<h2 class="inbox__title">Inbox</h2>
+					<ul class="tasks">
+						<li class="tasks__item">Take out the trash</li>
+						<li class="tasks__item">Walk the dog</li>
+						<li class="tasks__item">Feed the cat</li>
+						<li class="tasks__item">Buy groceries</li>
+						<li class="tasks__item">Water the plants</li>
+					</ul>
+
+					<form class="todo-form">
+						<input
+							class="todo-form__input"
+							aria-label="New Task"
+							type="text"
+							name="todo"
+						/>
+						<button class="todo-form_button" type="submit">+</button>
+					</form>
+				</section>
+			</main>
+		</div>
 	</body>
 </html>
