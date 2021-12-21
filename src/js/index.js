@@ -2,28 +2,15 @@ import "../css/reset.css";
 import "../css/style.css";
 
 // UI Components
-import { TodoList } from "./components/UI";
+import { ProjectList, ProjectForm, TodoList, TodoForm } from "./components/UI";
 
-// Logic Components
-import { App, Storage, TodoMapper } from "./components";
+const aside = document.querySelector("aside");
+const inbox = document.querySelector(".inbox");
 
-// const storage = new Storage();
-// const app = new App(storage);
-// const todoList = new TodoList(app.todoList);
-
-// todoList.render(app.todoList);
-
-const todoForm = document.querySelector("#todo-form");
-const projectForm = document.querySelector("#project-form");
-const mainTodoList = document.querySelector("#main-todo-list");
-
-/*
-projectForm.addEventListener("submit", handleProjectSubmit);
-todoForm.addEventListener("submit", handleTodoSubmit);
-
-mainTodoList.addEventListener("click", handleTodoClick);
-document.addEventListener("click", hideUnclosedDateInputs, true);
-*/
+ProjectForm.render(aside);
+ProjectList.render(aside);
+TodoList.render(inbox);
+TodoForm.render(inbox);
 
 function handleTodoSubmit(event) {
 	event.preventDefault();

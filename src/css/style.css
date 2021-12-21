@@ -1,32 +1,13 @@
-/* h1,
-h2 {
-	margin-bottom: 1em;
-	text-align: center;
-}
-
-form,
-ul {
-	margin: 0 auto 2em;
-	max-width: 500px;
-}
-
-li {
-	display: flex;
-	justify-content: space-between;
-}
-
-input {
-	background-color: hsl(160deg 1% 60%);
-	padding: 0.25em 0.75em;
-}
-
-input,
-input::placeholder {
-	color: hsl(0deg 0% 0%);
-} */
-
 .hidden {
 	display: none;
+}
+
+.hover-dark {
+	--hover: hsl(0deg 0% 90%);
+}
+
+.active {
+	background-color: var(--hover);
 }
 
 html,
@@ -42,82 +23,68 @@ body {
 
 main {
 	background-color: hsl(0deg 0% 90%);
+	padding: 2em 0.5em;
 }
 
 aside {
 	background-color: hsl(0deg 0% 95%);
-}
-
-.projects {
-	margin-top: 2em;
-	padding: 0 0.5em;
+	padding: 2em 0.5em;
 }
 
 .projects__title {
 	font-size: 1.5rem;
 	margin-bottom: 0.5em;
+	color: hsl(207deg 90% 54%);
+	font-weight: bold;
+	padding-left: 0.25em;
 }
 
-.project-form {
+.form {
 	display: flex;
 	gap: 0.5em;
-	align-items: center;
+	margin-bottom: 1em;
+	padding-left: 0.25em;
 }
 
-.project-form__input {
-	border: 1px solid black;
-	width: 100%;
-	flex-basis: 90%;
-	order: 1;
-}
-
-.project-form_button {
-	width: 100%;
-	flex-basis: 10%;
-	text-align: center;
-	font-size: 1.5rem;
+.form__button {
+	font-size: 2rem;
 	cursor: pointer;
+	color: hsl(207deg 90% 54%);
+}
+
+.form__input {
+	border-bottom: 1px solid hsl(207deg 90% 54%);
+	order: 1;
+	width: 100%;
+	align-self: center;
+	padding: 0.25em;
+	padding-top: 0.4em;
 }
 
 .inbox {
 	width: 90%;
 	max-width: 800px;
-	margin: 2em auto 0;
+	margin: 0 auto;
 }
 
 .inbox__title {
 	font-size: 1.5rem;
 	margin-bottom: 0.5em;
+	color: hsl(207deg 90% 54%);
+	font-weight: bold;
+	padding-left: 0.25em;
 }
 
-.tasks {
+.list {
 	margin-bottom: 1em;
 }
 
-.tasks__item {
+.list__item {
 	padding: 0.5em;
 	border-radius: 15px;
 	cursor: pointer;
 }
 
-.tasks__item:hover {
-	background-color: hsl(0deg 0% 95%);
-}
-
-.todo-form {
-	display: flex;
-	align-items: baseline;
-}
-
-.todo-form__input {
-	background-color: hsl(0deg 0% 95%);
-	border: 1px solid black;
-	order: 1;
-}
-
-button.todo-form_button {
-	font-size: 1.5rem;
-	flex-basis: 25px;
-	text-align: center;
-	cursor: pointer;
+.list__item:hover {
+	background-color: var(--hover, hsl(0deg 0% 95%));
 }
