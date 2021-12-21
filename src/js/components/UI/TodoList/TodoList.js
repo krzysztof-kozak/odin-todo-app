@@ -2,7 +2,7 @@ import { PublishSubscribe } from "../../index";
 
 class TodoList {
 	constructor() {
-		// Hey! I want to know when app data was first initiated
+		// Hey! I want to know when app data was first initilized!
 		PublishSubscribe.subscribe("DATA_INITIALIZED", this.update.bind(this));
 
 		// Hey! I want to know when a todo was added!
@@ -29,6 +29,12 @@ class TodoList {
 		this.domNode.innerHTML = null;
 		const df = new DocumentFragment();
 
+		const title = document.createElement("h2");
+		title.classList.add("inbox__title");
+		title.textContent = currentProject;
+
+		df.appendChild(title);
+
 		updatedList.forEach(({ title, id }) => {
 			const li = document.createElement("li");
 			li.classList.add("list__item");
@@ -36,6 +42,7 @@ class TodoList {
 			li.setAttribute("data-id", id);
 			df.appendChild(li);
 		});
+
 		this.domNode.appendChild(df);
 	}
 }

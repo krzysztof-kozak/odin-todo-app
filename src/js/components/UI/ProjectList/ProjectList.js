@@ -2,6 +2,10 @@ import { PublishSubscribe } from "../../index";
 
 class ProjectList {
 	constructor() {
+		// Hey! I want to know when app data was first initialized!
+		PublishSubscribe.subscribe("DATA_INITIALIZED", this.update.bind(this));
+
+		// Hey! I want to know when a new project was added!
 		PublishSubscribe.subscribe("PROJECT_ADDED", this.update.bind(this));
 	}
 
@@ -13,9 +17,23 @@ class ProjectList {
 		this.domNode = document.querySelector(".projects .list");
 	}
 
-	update(updateList) {
-		console.log("updated!");
-		console.log(this);
+	update({ currentProject, appData: projects }) {
+		this.domNode.innerHTML = null;
+		const df = new DocumentFragment();
+
+		projects.forEach(({ title, id }) => {
+			const li = document.createElement("li");
+			li.classList.add("list__item");
+			li.textContent = title;
+			li.setAttribute("data-id", id);
+			df.appendChild(li);
+
+			if (title === currentProject) {
+				li.classList.add("active");
+			}
+		});
+
+		this.domNode.appendChild(df);
 	}
 }
 

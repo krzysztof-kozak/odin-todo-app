@@ -4,9 +4,12 @@ import { ProjectMapper } from "../ProjectMapper";
 
 class App {
 	constructor(storage) {
-		this.currentProject = "Work";
+		this.defaultProject = { title: "Inbox", id: 0, todos: [] };
+		this.currentProject = "Inbox";
 		this.storage = storage;
-		this.appData = storage.get("APP_DATA") || [];
+		this.appData = storage.get("APP_DATA") || [this.defaultProject];
+
+		// Hey! I just want everybody to know that the app data was initialized!
 		PublishSubscribe.publish("DATA_INITIALIZED", {
 			currentProject: this.currentProject,
 			appData: this.appData,
@@ -14,27 +17,23 @@ class App {
 	}
 
 	addTodo(todoItem) {
-		const projectExists = this.appData.some(({ title }) => title === this.currentProject);
-		if (!projectExists) {
-			const formattedProject = ProjectMapper.map(this.currentProject);
-			this.appData.push(formattedProject);
-		}
-
 		const projectToUpdate = this.appData.find(({ title }) => title === this.currentProject);
 		const todos = projectToUpdate.todos;
 
-		// don't add duplicate task
+		// don't add duplicate tasks
 		const isDuplicate = todos.some(({ title }) => todoItem.title === title);
 		if (isDuplicate) {
 			return;
 		}
 
 		projectToUpdate.todos.push(todoItem);
-
 		this.storage.set("APP_DATA", this.appData);
 
 		// Hey! I just want everybody to know that a todo was added!
-		PublishSubscribe.publish("TODO_ADDED", todos);
+		PublishSubscribe.publish("TODO_ADDED", {
+			currentProject: this.currentProject,
+			appData: this.appData,
+		});
 	}
 
 	removeTodo(id) {
@@ -55,12 +54,27 @@ class App {
 		PublishSubscribe.publish("DATE_SET", this.appData);
 	}
 
+	addProject(project) {
+		// don't add duplicate projects
+		const isDuplicate = this.appData.some(({ title }) => project.title === title);
+		if (isDuplicate) {
+			return;
+		}
+		this.appData.push(project);
+		this.storage.set("APP_DATA", this.appData);
+
+		// Hey! I just want everybody to know that a new project was added!
+		PublishSubscribe.publish("PROJECT_ADDED", {
+			currentProject: this.currentProject,
+			appData: this.appData,
+		});
+	}
+
 	handleTodoSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(this.todoForm);
 		const todo = data.get("todo");
 		const formattedTodo = TodoMapper.map(todo);
-
 		this.addTodo(formattedTodo);
 	}
 
@@ -68,8 +82,8 @@ class App {
 		event.preventDefault();
 		const data = new FormData(this.projectForm);
 		const project = data.get("project");
-
-		PublishSubscribe.publish("PROJECT_ADDED", project);
+		const formattedProject = ProjectMapper.map(project);
+		this.addProject(formattedProject);
 	}
 
 	initialize() {
