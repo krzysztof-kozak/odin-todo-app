@@ -1,6 +1,6 @@
 class TodoForm {
-	static render(container) {
-		const template = document.querySelector("#todo-form");
+	render(container) {
+		const template = document.querySelector("#todo-form-template");
 		const content = template.content.cloneNode(true);
 		container.appendChild(content);
 	}

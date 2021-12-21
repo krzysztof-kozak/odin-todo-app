@@ -1,6 +1,6 @@
 class ProjectList {
-	static render(container) {
-		const template = document.querySelector("#project-list");
+	render(container) {
+		const template = document.querySelector("#project-list-template");
 		const content = template.content.cloneNode(true);
 		container.appendChild(content);
 	}

@@ -1,16 +1,31 @@
 import "../css/reset.css";
 import "../css/style.css";
 
+// Logic components
+import { App, Storage } from "./components";
+
 // UI Components
 import { ProjectList, ProjectForm, TodoList, TodoForm } from "./components/UI";
 
 const aside = document.querySelector("aside");
 const inbox = document.querySelector(".inbox");
 
-ProjectForm.render(aside);
-ProjectList.render(aside);
-TodoList.render(inbox);
-TodoForm.render(inbox);
+const projectForm = new ProjectForm();
+const projectList = new ProjectList();
+const todoForm = new TodoForm();
+const todoList = new TodoList();
+
+// Render UI component first
+projectForm.render(aside);
+projectList.render(aside);
+todoList.render(inbox);
+todoForm.render(inbox);
+
+// Then initialize the App && Storage
+const storage = new Storage();
+const app = new App(storage);
+
+app.initialize();
 
 function handleTodoSubmit(event) {
 	event.preventDefault();

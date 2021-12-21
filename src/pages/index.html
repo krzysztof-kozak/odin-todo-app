@@ -30,7 +30,7 @@
 				<section class="projects">
 					<h2 class="projects__title">Projects</h2>
 
-					<template id="project-form">
+					<template id="project-form-template">
 						<form class="form">
 							<input
 								class="form__input"
@@ -42,7 +42,7 @@
 						</form>
 					</template>
 
-					<template id="project-list">
+					<template id="project-list-template">
 						<ul class="list hover-dark">
 							<li class="list__item active">Inbox</li>
 							<li class="list__item">Home renovation</li>
@@ -55,18 +55,12 @@
 			<main>
 				<section class="inbox">
 					<h2 class="inbox__title">Inbox</h2>
-					<template id="todo-list">
-						<ul class="list">
-							<li class="list__item">Take out the trash</li>
-							<li class="list__item">Walk the dog</li>
-							<li class="list__item">Feed the cat</li>
-							<li class="list__item">Buy groceries</li>
-							<li class="list__item">Water the plants</li>
-						</ul>
+					<template id="todo-list-template">
+						<ul class="list"></ul>
 					</template>
 
-					<template id="todo-form">
-						<form class="form">
+					<template id="todo-form-template">
+						<form class="form" id="todo-form">
 							<input
 								class="form__input"
 								aria-label="New Task"

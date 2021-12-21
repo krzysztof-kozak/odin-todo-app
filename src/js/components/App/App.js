@@ -1,9 +1,11 @@
 import { PublishSubscribe } from "../PublishSubscribe";
+import { TodoMapper } from "../TodoMapper";
 
 class App {
 	constructor(storage) {
-		this.todoList = storage.get("APP_DATA") || [];
 		this.storage = storage;
+		this.todoList = storage.get("APP_DATA") || [];
+		PublishSubscribe.publish("LIST_INITIATED", this.todoList);
 	}
 
 	addTodo(todoItem) {
@@ -36,6 +38,20 @@ class App {
 
 		// Hey! I just want everybody to know that a date was set!
 		PublishSubscribe.publish("DATE_SET", this.todoList);
+	}
+
+	handleTodoSubmit(event) {
+		event.preventDefault();
+		const data = new FormData(this.todoForm);
+		const todo = data.get("todo");
+		const formattedTodo = TodoMapper.map(todo);
+
+		this.addTodo(formattedTodo);
+	}
+
+	initialize() {
+		this.todoForm = document.querySelector("#todo-form");
+		this.todoForm.addEventListener("submit", this.handleTodoSubmit.bind(this));
 	}
 }
 

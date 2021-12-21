@@ -2,20 +2,39 @@ import { PublishSubscribe } from "../../index";
 
 class TodoList {
 	constructor() {
+		// Hey! I want to know when a list was first initiated
+		PublishSubscribe.subscribe("LIST_INITIATED", this.update.bind(this));
+
 		// Hey! I want to know when a todo was added!
-		PublishSubscribe.subscribe("TODO_ADDED", this.render);
+		PublishSubscribe.subscribe("TODO_ADDED", this.update.bind(this));
 
 		// Hey! I want to know when a todo was removed!
-		PublishSubscribe.subscribe("TODO_REMOVED", this.render);
+		PublishSubscribe.subscribe("TODO_REMOVED", this.update.bind(this));
 
 		// Hey! I want to know when a date on a todo was set!
-		PublishSubscribe.subscribe("DATE_SET", this.render);
+		PublishSubscribe.subscribe("DATE_SET", this.update.bind(this));
 	}
 
-	static render(container) {
-		const template = document.querySelector("#todo-list");
+	render(container) {
+		const template = document.querySelector("#todo-list-template");
 		const content = template.content.cloneNode(true);
 		container.appendChild(content);
+
+		this.domNode = document.querySelector(".inbox .list");
+	}
+
+	update(updatedList) {
+		this.domNode.innerHTML = null;
+		const df = new DocumentFragment();
+
+		updatedList.forEach(({ title, id }) => {
+			const li = document.createElement("li");
+			li.classList.add("list__item");
+			li.textContent = title;
+			li.setAttribute("data-id", id);
+			df.appendChild(li);
+		});
+		this.domNode.appendChild(df);
 	}
 }
 
