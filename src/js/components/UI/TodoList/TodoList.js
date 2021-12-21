@@ -2,8 +2,8 @@ import { PublishSubscribe } from "../../index";
 
 class TodoList {
 	constructor() {
-		// Hey! I want to know when a list was first initiated
-		PublishSubscribe.subscribe("LIST_INITIATED", this.update.bind(this));
+		// Hey! I want to know when app data was first initiated
+		PublishSubscribe.subscribe("DATA_INITIALIZED", this.update.bind(this));
 
 		// Hey! I want to know when a todo was added!
 		PublishSubscribe.subscribe("TODO_ADDED", this.update.bind(this));
@@ -23,7 +23,9 @@ class TodoList {
 		this.domNode = document.querySelector(".inbox .list");
 	}
 
-	update(updatedList) {
+	update({ currentProject, appData }) {
+		const updatedList = appData.find(({ title }) => title === currentProject).todos;
+
 		this.domNode.innerHTML = null;
 		const df = new DocumentFragment();
 
