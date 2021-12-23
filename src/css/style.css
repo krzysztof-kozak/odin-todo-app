@@ -85,6 +85,10 @@ aside {
 	cursor: pointer;
 }
 
+.list__item + .list__item {
+	margin-top: 0.5em;
+}
+
 .list__item:hover {
 	background-color: var(--hover, hsl(0deg 0% 95%));
 }

@@ -86,12 +86,29 @@ class App {
 		this.addProject(formattedProject);
 	}
 
+	handleProjectClick({ target }) {
+		if (!target.classList.contains("list__item")) {
+			return;
+		}
+
+		const title = target.textContent;
+		this.currentProject = title;
+
+		// Hey! I just want everybody to know that an active project was switched!
+		PublishSubscribe.publish("PROJECT_SWITCHED", {
+			currentProject: this.currentProject,
+			appData: this.appData,
+		});
+	}
+
 	initialize() {
 		this.todoForm = document.querySelector("#todo-form");
 		this.projectForm = document.querySelector("#project-form");
+		this.projects = document.querySelector(".projects .list");
 
 		this.todoForm.addEventListener("submit", this.handleTodoSubmit.bind(this));
 		this.projectForm.addEventListener("submit", this.handleProjectSubmit.bind(this));
+		this.projects.addEventListener("click", this.handleProjectClick.bind(this));
 	}
 }
 

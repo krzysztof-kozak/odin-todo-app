@@ -13,6 +13,9 @@ class TodoList {
 
 		// Hey! I want to know when a date on a todo was set!
 		PublishSubscribe.subscribe("DATE_SET", this.update.bind(this));
+
+		// Hey! I want to know when an active project was swtiched!
+		PublishSubscribe.subscribe("PROJECT_SWITCHED", this.update.bind(this));
 	}
 
 	render(container) {

@@ -7,6 +7,9 @@ class ProjectList {
 
 		// Hey! I want to know when a new project was added!
 		PublishSubscribe.subscribe("PROJECT_ADDED", this.update.bind(this));
+
+		// Hey! I want to know when an active project was swtiched!
+		PublishSubscribe.subscribe("PROJECT_SWITCHED", this.update.bind(this));
 	}
 
 	render(container) {
