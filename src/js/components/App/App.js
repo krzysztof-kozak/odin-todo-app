@@ -36,12 +36,20 @@ class App {
 		});
 	}
 
-	removeTodo(id) {
-		this.appData = this.appData.filter((item) => item.id !== id);
+	removeTodo(idToRemove) {
+		const project = this.appData.find(({ title }) => title === this.currentProject);
+
+		const currentTodos = project.todos;
+		const filteredTodos = currentTodos.filter(({ id }) => id !== idToRemove);
+		project.todos = filteredTodos;
+
 		this.storage.set("APP_DATA", this.appData);
 
 		// Hey! I just want everybody to know that a todo was added!
-		PublishSubscribe.publish("TODO_REMOVED", this.appData);
+		PublishSubscribe.publish("TODO_REMOVED", {
+			currentProject: this.currentProject,
+			appData: this.appData,
+		});
 	}
 
 	setTodoDate(id, { target }) {
@@ -101,13 +109,30 @@ class App {
 		});
 	}
 
+	handleTodoClick({ target }) {
+		const role = target.dataset.role;
+
+		switch (role) {
+			case "check-button":
+				const todo = target.closest("li");
+				const id = todo.dataset.id;
+				this.removeTodo(id);
+				break;
+
+			default:
+				break;
+		}
+	}
+
 	initialize() {
 		this.todoForm = document.querySelector("#todo-form");
 		this.projectForm = document.querySelector("#project-form");
+		this.todos = document.querySelector(".inbox .list");
 		this.projects = document.querySelector(".projects .list");
 
 		this.todoForm.addEventListener("submit", this.handleTodoSubmit.bind(this));
 		this.projectForm.addEventListener("submit", this.handleProjectSubmit.bind(this));
+		this.todos.addEventListener("click", this.handleTodoClick.bind(this));
 		this.projects.addEventListener("click", this.handleProjectClick.bind(this));
 	}
 }

@@ -45,6 +45,7 @@ class TodoList {
 
 			const checkBtn = document.createElement("div");
 			checkBtn.classList.add("check-btn");
+			checkBtn.setAttribute("data-role", "check-button");
 
 			const titleP = document.createElement("p");
 			titleP.textContent = title;
