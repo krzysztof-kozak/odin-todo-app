@@ -111,12 +111,18 @@ class App {
 
 	handleTodoClick({ target }) {
 		const role = target.dataset.role;
+		const todo = target.closest("li");
+		const id = todo.dataset.id;
 
 		switch (role) {
 			case "check-button":
-				const todo = target.closest("li");
-				const id = todo.dataset.id;
 				this.removeTodo(id);
+				break;
+
+			case "date":
+				const dateInput = todo.querySelector(".date-input");
+				target.classList.add("hidden");
+				dateInput.classList.remove("hidden");
 				break;
 
 			default:

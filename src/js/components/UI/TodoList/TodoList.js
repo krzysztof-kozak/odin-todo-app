@@ -51,7 +51,13 @@ class TodoList {
 			titleP.textContent = title;
 
 			const dateP = document.createElement("p");
+			dateP.setAttribute("data-role", "date");
+			dateP.classList.add("date-paragraph");
 			dateP.textContent = dueDate;
+
+			const dateInput = document.createElement("input");
+			dateInput.setAttribute("type", "date");
+			dateInput.classList.add("hidden", "date-input");
 
 			const container = document.createElement("div");
 			container.classList.add("title-container");
@@ -60,6 +66,7 @@ class TodoList {
 
 			li.appendChild(container);
 			li.appendChild(dateP);
+			li.appendChild(dateInput);
 
 			df.appendChild(li);
 		});
