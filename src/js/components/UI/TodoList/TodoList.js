@@ -38,11 +38,16 @@ class TodoList {
 
 		df.appendChild(title);
 
-		updatedList.forEach(({ title, id }) => {
+		updatedList.forEach(({ title, id, dueDate }) => {
 			const li = document.createElement("li");
 			li.classList.add("list__item");
 			li.textContent = title;
 			li.setAttribute("data-id", id);
+
+			const span = document.createElement("span");
+			span.textContent = dueDate;
+
+			li.appendChild(span);
 			df.appendChild(li);
 		});
 

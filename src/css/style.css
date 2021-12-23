@@ -80,9 +80,10 @@ aside {
 }
 
 .list__item {
+	display: flex;
+	justify-content: space-between;
 	padding: 0.5em;
 	border-radius: 15px;
-	cursor: pointer;
 }
 
 .list__item + .list__item {
