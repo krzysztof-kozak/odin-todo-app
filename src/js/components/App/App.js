@@ -52,14 +52,20 @@ class App {
 		});
 	}
 
-	setTodoDate(id, { target }) {
+	setTodoDate(targetId, { target }) {
 		const newDate = target.value;
-		const todo = this.appData.find((todo) => todo.id === id);
+
+		const project = this.appData.find(({ title }) => title === this.currentProject);
+		const todo = project.todos.find(({ id }) => id === targetId);
 		todo.dueDate = newDate;
+
 		this.storage.set("APP_DATA", this.appData);
 
-		// Hey! I just want everybody to know that a date was set!
-		PublishSubscribe.publish("DATE_SET", this.appData);
+		// Hey! I just want everybody to know that a todo date was set!
+		PublishSubscribe.publish("DATE_SET", {
+			currentProject: this.currentProject,
+			appData: this.appData,
+		});
 	}
 
 	addProject(project) {
@@ -110,9 +116,9 @@ class App {
 	}
 
 	handleTodoClick({ target }) {
-		const role = target.dataset.role;
 		const todo = target.closest("li");
 		const id = todo.dataset.id;
+		const role = target.dataset.role;
 
 		switch (role) {
 			case "check-button":
@@ -121,8 +127,10 @@ class App {
 
 			case "date":
 				const dateInput = todo.querySelector(".date-input");
-				target.classList.add("hidden");
 				dateInput.classList.remove("hidden");
+				dateInput.addEventListener("change", this.setTodoDate.bind(this, id));
+
+				target.classList.add("hidden");
 				break;
 
 			default:
