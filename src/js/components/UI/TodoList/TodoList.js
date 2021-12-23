@@ -41,13 +41,25 @@ class TodoList {
 		updatedList.forEach(({ title, id, dueDate }) => {
 			const li = document.createElement("li");
 			li.classList.add("list__item");
-			li.textContent = title;
 			li.setAttribute("data-id", id);
 
-			const span = document.createElement("span");
-			span.textContent = dueDate;
+			const checkBtn = document.createElement("div");
+			checkBtn.classList.add("check-btn");
 
-			li.appendChild(span);
+			const titleP = document.createElement("p");
+			titleP.textContent = title;
+
+			const dateP = document.createElement("p");
+			dateP.textContent = dueDate;
+
+			const container = document.createElement("div");
+			container.classList.add("title-container");
+			container.appendChild(checkBtn);
+			container.appendChild(titleP);
+
+			li.appendChild(container);
+			li.appendChild(dateP);
+
 			df.appendChild(li);
 		});
 

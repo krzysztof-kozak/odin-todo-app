@@ -93,3 +93,19 @@ aside {
 .list__item:hover {
 	background-color: var(--hover, hsl(0deg 0% 95%));
 }
+
+.title-container {
+	display: flex;
+	align-items: center;
+	gap: 0.25em;
+}
+
+.check-btn {
+	background-color: hsl(207deg 100% 85%);
+	border: 2px solid hsl(207deg 90% 54%);
+	border-radius: 50%;
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+	flex-shrink: 0;
+}
