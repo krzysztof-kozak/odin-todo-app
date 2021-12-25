@@ -5,21 +5,24 @@ import "../css/style.css";
 import { App, Storage } from "./components";
 
 // UI Components
-import { ProjectList, ProjectForm, TodoList, TodoForm } from "./components/UI";
+import { Inbox, ProjectList, ProjectForm, TodoList, TodoForm } from "./components/UI";
 
 const projectsSection = document.querySelector(".projects");
-const inbox = document.querySelector(".inbox");
+const todosSection = document.querySelector(".inbox");
+const aside = document.querySelector("aside");
 
+const inbox = new Inbox();
 const projectForm = new ProjectForm();
 const projectList = new ProjectList();
 const todoForm = new TodoForm();
 const todoList = new TodoList();
 
 // Render UI component first
+inbox.render(aside);
 projectForm.render(projectsSection);
 projectList.render(projectsSection);
-todoList.render(inbox);
-todoForm.render(inbox);
+todoList.render(todosSection);
+todoForm.render(todosSection);
 
 // Then initialize the App && Storage
 const storage = new Storage();

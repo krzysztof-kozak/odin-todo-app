@@ -166,7 +166,7 @@ class App {
 		this.todoForm = document.querySelector("#todo-form");
 		this.projectForm = document.querySelector("#project-form");
 		this.todos = document.querySelector(".inbox .list");
-		this.projects = document.querySelector(".projects .list");
+		this.projects = document.querySelector("aside");
 
 		this.todoForm.addEventListener("submit", this.handleTodoSubmit.bind(this));
 		this.projectForm.addEventListener("submit", this.handleProjectSubmit.bind(this));

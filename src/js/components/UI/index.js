@@ -1,3 +1,5 @@
+export { Inbox } from "./Inbox";
+
 export { ProjectForm } from "./ProjectForm";
 export { ProjectList } from "./ProjectList";
 

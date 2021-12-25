@@ -25,6 +25,10 @@ class ProjectList {
 		const df = new DocumentFragment();
 
 		projects.forEach(({ title, id }) => {
+			if (title === "Inbox") {
+				return;
+			}
+
 			const li = document.createElement("li");
 			li.classList.add("list__item");
 			li.textContent = title;
