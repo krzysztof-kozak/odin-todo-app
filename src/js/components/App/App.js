@@ -84,6 +84,22 @@ class App {
 		});
 	}
 
+	closeDateInputs(currentTarget) {
+		const unclosedDateInputs = document.querySelectorAll(".date-input:not(.hidden)");
+
+		unclosedDateInputs.forEach((input) => {
+			const todo = input.closest(".list__item");
+			const dateP = todo.querySelector(".date-paragraph");
+
+			if (dateP === currentTarget) {
+				return;
+			}
+
+			input.classList.add("hidden");
+			dateP.classList.remove("hidden");
+		});
+	}
+
 	handleTodoSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(this.todoForm);
@@ -138,6 +154,14 @@ class App {
 		}
 	}
 
+	handleDocumentClick({ target }) {
+		if (target.classList.contains("date-input")) {
+			return;
+		}
+
+		this.closeDateInputs(target);
+	}
+
 	initialize() {
 		this.todoForm = document.querySelector("#todo-form");
 		this.projectForm = document.querySelector("#project-form");
@@ -148,6 +172,8 @@ class App {
 		this.projectForm.addEventListener("submit", this.handleProjectSubmit.bind(this));
 		this.todos.addEventListener("click", this.handleTodoClick.bind(this));
 		this.projects.addEventListener("click", this.handleProjectClick.bind(this));
+
+		document.addEventListener("click", this.handleDocumentClick.bind(this));
 	}
 }
 
