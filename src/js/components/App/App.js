@@ -20,6 +20,11 @@ class App {
 	}
 
 	addTodo(todoItem) {
+		// don't allow adding empty tasks
+		if (!todoItem.title) {
+			return;
+		}
+
 		const projectToUpdate = this.appData.find(({ title }) => title === this.currentProject);
 		const todos = projectToUpdate.todos;
 
