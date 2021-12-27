@@ -24,8 +24,9 @@ class ProjectList {
 		this.domNode.innerHTML = null;
 		const df = new DocumentFragment();
 
+		const inboxItems = ["Inbox", "Today", "This Week"];
 		projects.forEach(({ title, id }) => {
-			if (title === "Inbox") {
+			if (inboxItems.includes(title)) {
 				return;
 			}
 

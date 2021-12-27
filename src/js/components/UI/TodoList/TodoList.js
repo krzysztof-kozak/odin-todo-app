@@ -27,6 +27,14 @@ class TodoList {
 	}
 
 	update({ currentProject, appData }) {
+		const todoForm = document.querySelector("#todo-form");
+
+		if (currentProject == "Today" || currentProject == "This Week") {
+			todoForm.style.display = "none";
+		} else {
+			todoForm.style.display = "flex";
+		}
+
 		const updatedList = appData.find(({ title }) => title === currentProject).todos;
 
 		this.domNode.innerHTML = null;
@@ -38,11 +46,10 @@ class TodoList {
 
 		df.appendChild(title);
 
-		updatedList.forEach(({ title, id, dueDate }) => {
+		updatedList.forEach(({ title, id, dueDate, fromProject }) => {
 			const li = document.createElement("li");
 			li.classList.add("list__item");
 			li.setAttribute("data-id", id);
-
 			const checkBtn = document.createElement("div");
 			checkBtn.classList.add("check-btn");
 			checkBtn.setAttribute("data-role", "check-button");
@@ -63,6 +70,13 @@ class TodoList {
 			container.classList.add("title-container");
 			container.appendChild(checkBtn);
 			container.appendChild(titleP);
+
+			if ((fromProject && currentProject == "Today") || currentProject == "This Week") {
+				const projectP = document.createElement("p");
+				projectP.textContent = `(from: ${fromProject})`;
+				projectP.style.color = "hsl(207deg 90% 54%)";
+				container.appendChild(projectP);
+			}
 
 			li.appendChild(container);
 			li.appendChild(dateP);

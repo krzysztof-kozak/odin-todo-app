@@ -1,13 +1,16 @@
+import { isToday, isThisWeek } from "date-fns";
 import { PublishSubscribe } from "../PublishSubscribe";
 import { TodoMapper } from "../TodoMapper";
 import { ProjectMapper } from "../ProjectMapper";
 
 class App {
 	constructor(storage) {
-		this.defaultProject = { title: "Inbox", id: 0, todos: [] };
+		this.inbox = { title: "Inbox", id: 0, todos: [] };
+		this.today = { title: "Today", id: 1, todos: [] };
+		this.thisWeek = { title: "This Week", id: 2, todos: [] };
 		this.currentProject = "Inbox";
 		this.storage = storage;
-		this.appData = storage.get("APP_DATA") || [this.defaultProject];
+		this.appData = storage.get("APP_DATA") || [this.inbox, this.today, this.thisWeek];
 
 		// Hey! I just want everybody to know that the app data was initialized!
 		PublishSubscribe.publish("DATA_INITIALIZED", {
@@ -59,6 +62,14 @@ class App {
 		const todo = project.todos.find(({ id }) => id === targetId);
 		todo.dueDate = newDate;
 
+		if (isToday(new Date(todo.dueDate))) {
+			this.updateTodayInbox(todo, project.title);
+		}
+
+		if (isThisWeek(new Date(todo.dueDate))) {
+			this.updateThisWeekInbox(todo, project.title);
+		}
+
 		this.storage.set("APP_DATA", this.appData);
 
 		// Hey! I just want everybody to know that a todo date was set!
@@ -66,6 +77,30 @@ class App {
 			currentProject: this.currentProject,
 			appData: this.appData,
 		});
+	}
+
+	updateTodayInbox(todo, fromProject) {
+		const todosForToday = this.appData.find(({ title }) => title === "Today").todos;
+
+		const isDuplicate = todosForToday.some(({ id }) => todo.id === id);
+		if (isDuplicate) {
+			return;
+		}
+
+		todo.fromProject = fromProject;
+		todosForToday.push(todo);
+	}
+
+	updateThisWeekInbox(todo, fromProject) {
+		const todosForThisWeek = this.appData.find(({ title }) => title === "This Week").todos;
+
+		const isDuplicate = todosForThisWeek.some(({ id }) => todo.id === id);
+		if (isDuplicate) {
+			return;
+		}
+
+		todo.fromProject = fromProject;
+		todosForThisWeek.push(todo);
 	}
 
 	addProject(project) {
@@ -106,6 +141,7 @@ class App {
 		const todo = data.get("todo");
 		const formattedTodo = TodoMapper.map(todo);
 		this.addTodo(formattedTodo);
+		this.todoForm.reset();
 	}
 
 	handleProjectSubmit(event) {
@@ -114,6 +150,7 @@ class App {
 		const project = data.get("project");
 		const formattedProject = ProjectMapper.map(project);
 		this.addProject(formattedProject);
+		this.projectForm.reset();
 	}
 
 	handleProjectClick({ target }) {
