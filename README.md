@@ -82,4 +82,4 @@ This pattern makes use of a PublishSubscribe component. The PublishSubscribe com
 
 ## Publish Subscribe design pattern visualisation:
 
-<img src="https://raw.githubusercontent.com/krzysztof-kozak/odin-todo-app/main/design.svg" style="display: block; width: 80%; margin: 50px auto;">
+<img src="https://raw.githubusercontent.com/krzysztof-kozak/odin-todo-app/main/design.svg" style="display: block; width: 100%; margin: 50px auto;">
