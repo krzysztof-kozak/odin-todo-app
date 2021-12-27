@@ -25,7 +25,7 @@
 			<h2>Todo list</h2>
 			<ul id="main-todo-list"></ul>
 		</section> -->
-		<div id="app">
+		<div class="app" id="app">
 			<header>
 				<div class="grid-container">
 					<h1 class="title">todo app</h1>
@@ -42,36 +42,35 @@
 					</div>
 				</div>
 			</header>
-			<aside>
-				<section class="projects">
-					<h2 class="projects__title">Projects</h2>
-
-					<template id="project-form-template">
-						<form class="form" id="project-form">
-							<input
-								class="form__input"
-								aria-label="New Project"
-								type="text"
-								name="project"
-							/>
-							<button class="form__button" type="submit">+</button>
-						</form>
-					</template>
-
-					<template id="inbox-list-template">
-						<ul class="list hover-dark">
-							<li class="list__item" data-id="0">Inbox</li>
-							<li class="list__item" data-id="1">Today</li>
-							<li class="list__item" data-id="2">This Week</li>
-						</ul>
-					</template>
-
-					<template id="project-list-template">
-						<ul class="list hover-dark"></ul>
-					</template>
-				</section>
-			</aside>
-			<main>
+			<div class="aside-wrapper">
+				<aside>
+					<section class="projects">
+						<h2 class="projects__title">Projects</h2>
+						<template id="project-form-template">
+							<form class="form" id="project-form">
+								<input
+									class="form__input"
+									aria-label="New Project"
+									type="text"
+									name="project"
+								/>
+								<button class="form__button" type="submit">+</button>
+							</form>
+						</template>
+						<template id="inbox-list-template">
+							<ul class="list hover-dark">
+								<li class="list__item" data-id="0">Inbox</li>
+								<li class="list__item" data-id="1">Today</li>
+								<li class="list__item" data-id="2">This Week</li>
+							</ul>
+						</template>
+						<template id="project-list-template">
+							<ul class="list hover-dark"></ul>
+						</template>
+					</section>
+				</aside>
+			</div>
+			<main class="main">
 				<section class="inbox">
 					<template id="todo-list-template">
 						<h2 class="inbox__title"></h2>

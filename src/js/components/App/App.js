@@ -8,9 +8,13 @@ class App {
 		this.inbox = { title: "Inbox", id: 0, todos: [] };
 		this.today = { title: "Today", id: 1, todos: [] };
 		this.thisWeek = { title: "This Week", id: 2, todos: [] };
+
 		this.currentProject = "Inbox";
+
 		this.storage = storage;
 		this.appData = storage.get("APP_DATA") || [this.inbox, this.today, this.thisWeek];
+
+		this.isMenuOpen = false;
 
 		// Hey! I just want everybody to know that the app data was initialized!
 		PublishSubscribe.publish("DATA_INITIALIZED", {
@@ -222,17 +226,36 @@ class App {
 		this.closeDateInputs(target);
 	}
 
+	handleMenuClick() {
+		if (!this.isMenuOpen) {
+			this.app.classList.add("mobile-layout");
+			this.main.classList.add("span-rows-3-4");
+			this.asideWrapper.classList.add("menu-open");
+		} else {
+			this.app.classList.remove("mobile-layout");
+			this.main.classList.remove("span-rows-3-4");
+			this.asideWrapper.classList.remove("menu-open");
+		}
+		this.isMenuOpen = !this.isMenuOpen;
+	}
+
 	initialize() {
+		this.app = document.querySelector(".app");
+		this.main = document.querySelector(".main");
+		this.asideWrapper = document.querySelector(".aside-wrapper");
+
 		this.todoForm = document.querySelector("#todo-form");
 		this.projectForm = document.querySelector("#project-form");
 		this.todos = document.querySelector(".inbox .list");
 		this.projects = document.querySelector("aside");
+		this.menuBtn = document.querySelector(".menu__button");
 
 		this.todoForm.addEventListener("submit", this.handleTodoSubmit.bind(this));
 		this.projectForm.addEventListener("submit", this.handleProjectSubmit.bind(this));
 		this.todos.addEventListener("click", this.handleTodoClick.bind(this));
 		this.projects.addEventListener("click", this.handleProjectClick.bind(this));
 
+		this.menuBtn.addEventListener("click", this.handleMenuClick.bind(this));
 		document.addEventListener("click", this.handleDocumentClick.bind(this));
 	}
 }
