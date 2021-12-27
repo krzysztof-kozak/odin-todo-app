@@ -88,6 +88,10 @@ aside {
 	margin: 0 auto;
 }
 
+aside .list__item {
+	cursor: pointer;
+}
+
 @media (max-width: 1024px) {
 	.app {
 		grid-template-columns: 1fr;
@@ -199,6 +203,25 @@ aside {
 	background-color: hsl(207deg 100% 85%);
 	padding: 0.1em 0.25em;
 	border-radius: 5px;
+}
+
+footer {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+	grid-row: -1;
+	padding: 0.5em;
+	font-size: 1.2rem;
+}
+
+footer img {
+	display: block;
+}
+
+.github-icon {
+	cursor: pointer;
 }
 
 .hidden {
