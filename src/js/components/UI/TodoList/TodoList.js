@@ -1,5 +1,6 @@
 import { isThisWeek } from "date-fns";
 import isToday from "date-fns/isToday";
+import { compareAsc } from "date-fns";
 import { PublishSubscribe } from "../../index";
 
 class TodoList {
@@ -56,6 +57,10 @@ class TodoList {
 		title.textContent = currentProject;
 
 		df.appendChild(title);
+
+		updatedTodos.sort((a, b) => {
+			return compareAsc(new Date(a.dueDate), new Date(b.dueDate));
+		});
 
 		updatedTodos.forEach(({ title, id, dueDate, fromProject }) => {
 			const li = document.createElement("li");
