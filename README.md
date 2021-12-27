@@ -11,7 +11,7 @@ The main goal of this project was for me to practise organising my code into mod
 
 ---
 
-## Design Patter - Publish Subscribe
+## Design Pattern - Publish Subscribe
 
 I have taken upon myself to practice a Publish Subscribe design pattern, sometimes also called an Observer pattern.
 
