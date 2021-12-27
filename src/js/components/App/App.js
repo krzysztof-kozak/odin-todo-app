@@ -40,11 +40,12 @@ class App {
 	}
 
 	removeTodo(idToRemove) {
-		const project = this.appData.find(({ title }) => title === this.currentProject);
-
-		const currentTodos = project.todos;
-		const filteredTodos = currentTodos.filter(({ id }) => id !== idToRemove);
-		project.todos = filteredTodos;
+		// Remove all instances of the todo with the idToRemove
+		this.appData.forEach((project) => {
+			project.todos = project.todos.filter(({ id }) => {
+				return id !== idToRemove;
+			});
+		});
 
 		this.storage.set("APP_DATA", this.appData);
 
