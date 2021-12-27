@@ -1,3 +1,5 @@
+import { isThisWeek } from "date-fns";
+import isToday from "date-fns/isToday";
 import { PublishSubscribe } from "../../index";
 
 class TodoList {
@@ -28,14 +30,23 @@ class TodoList {
 
 	update({ currentProject, appData }) {
 		const todoForm = document.querySelector("#todo-form");
+		let updatedTodos = appData.find(({ title }) => title === currentProject).todos;
 
-		if (currentProject == "Today" || currentProject == "This Week") {
-			todoForm.style.display = "none";
-		} else {
-			todoForm.style.display = "flex";
+		switch (currentProject) {
+			case "Today":
+				updatedTodos = updatedTodos.filter(({ dueDate }) => isToday(new Date(dueDate)));
+				todoForm.style.display = "none";
+				break;
+
+			case "This Week":
+				updatedTodos = updatedTodos.filter(({ dueDate }) => isThisWeek(new Date(dueDate)));
+				todoForm.style.display = "none";
+				break;
+
+			default:
+				todoForm.style.display = "flex";
+				break;
 		}
-
-		const updatedList = appData.find(({ title }) => title === currentProject).todos;
 
 		this.domNode.innerHTML = null;
 		const df = new DocumentFragment();
@@ -46,7 +57,7 @@ class TodoList {
 
 		df.appendChild(title);
 
-		updatedList.forEach(({ title, id, dueDate, fromProject }) => {
+		updatedTodos.forEach(({ title, id, dueDate, fromProject }) => {
 			const li = document.createElement("li");
 			li.classList.add("list__item");
 			li.setAttribute("data-id", id);
