@@ -2,6 +2,7 @@ import { isToday, isThisWeek } from "date-fns";
 import { PublishSubscribe } from "../PublishSubscribe";
 import { TodoMapper } from "../TodoMapper";
 import { ProjectMapper } from "../ProjectMapper";
+import { de } from "date-fns/locale";
 
 class App {
 	constructor(storage) {
@@ -194,6 +195,9 @@ class App {
 
 	handleTodoClick({ target }) {
 		const todo = target.closest("li");
+		if (!todo) {
+			return;
+		}
 		const id = todo.dataset.id;
 		const role = target.dataset.role;
 
