@@ -1,6 +1,6 @@
 # odin-todo-app
 
-<img src="https://raw.githubusercontent.com/krzysztof-kozak/odin-todo-app/main/todo.png" style="display: block; width: 80%; margin: 50px auto;">
+<img src="https://raw.githubusercontent.com/krzysztof-kozak/odin-todo-app/main/todo.png" style="display: block; width: 100%; margin: 50px auto;">
 
 This is the fourth project in the [full stack JavaScript](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/todo-list) path of [The Odin Project](https://www.theodinproject.com/).
 
