@@ -58,16 +58,33 @@ class App {
 	setTodoDate(targetId, { target }) {
 		const newDate = target.value;
 
+		// Project from which the todo with targetId originated
 		const project = this.appData.find(({ title }) => title === this.currentProject);
+
+		// Update the date for that todo
 		const todo = project.todos.find(({ id }) => id === targetId);
 		todo.dueDate = newDate;
 
+		// If that todo has due date today, add it to the Today's list
 		if (isToday(new Date(todo.dueDate))) {
 			this.updateTodayInbox(todo, project.title);
 		}
 
+		// If that todo has due date this week, add it the the This Week's list
 		if (isThisWeek(new Date(todo.dueDate))) {
 			this.updateThisWeekInbox(todo, project.title);
+		}
+
+		// Find all instances of that todo in all projects
+		const todosToUpdate = this.appData.forEach(({ todos }) => {
+			return todos.map(({ id }) => {
+				id === targetId;
+			});
+		});
+
+		// Update the date for each instance of that todo (if they exist)
+		if (todosToUpdate) {
+			todosToUpdate.forEach((todo) => (todo.dueDate = newDate));
 		}
 
 		this.storage.set("APP_DATA", this.appData);
