@@ -85,17 +85,14 @@ class App {
 			this.updateThisWeekInbox(todo, project.title);
 		}
 
-		// Find all instances of that todo in all projects
-		const todosToUpdate = this.appData.forEach(({ todos }) => {
-			return todos.map(({ id }) => {
-				id === targetId;
+		// Update the date for all instances of that todo
+		this.appData.forEach((project) => {
+			project.todos.forEach(({ id, dueDate }) => {
+				if (id === targetId) {
+					dueDate = newDate;
+				}
 			});
 		});
-
-		// Update the date for each instance of that todo (if they exist)
-		if (todosToUpdate) {
-			todosToUpdate.forEach((todo) => (todo.dueDate = newDate));
-		}
 
 		this.storage.set("APP_DATA", this.appData);
 
